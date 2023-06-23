@@ -1,0 +1,73 @@
+class ProductManager {
+  constructor() {
+    this.products = [];
+  }
+
+  generateProductId() {
+    return Math.random().toString(36).substr(2, 9); // Genera un ID aleatorio
+  }
+
+  getProducts() {
+    return this.products;
+  }
+
+  addProduct(productData) {
+    const newProduct = {
+      id: this.generateProductId(),
+      ...productData
+    };
+    this.products.push(newProduct);
+  }
+
+  getProductById(productId) {
+    const product = this.products.find(product => product.id === productId);
+    if (!product) {
+      throw new Error('El producto no existe');
+    }
+    return product;
+  }
+
+  updateProduct(productId, updatedFields) {
+    const product = this.getProductById(productId);
+    Object.assign(product, updatedFields);
+  }
+
+  deleteProduct(productId) {
+    const index = this.products.findIndex(product => product.id === productId);
+    if (index === -1) {
+      throw new Error('El producto no existe');
+    }
+    this.products.splice(index, 1);
+  }
+}
+
+// Crear una instancia de ProductManager
+const productManager = new ProductManager();
+
+// Obtener los productos (debe ser un arreglo vacío [])
+console.log(productManager.getProducts()); 
+
+// Agregar un nuevo producto
+productManager.addProduct({
+  title: 'producto prueba',
+  description: 'Este es un producto prueba',
+  price: 200,
+  thumbnail: 'Sin imagen',
+  code: 'abc123',
+  stock: 25
+});
+
+// Obtener los productos (ahora debería contener el producto recién agregado)
+console.log(productManager.getProducts()); 
+
+// Obtener un producto por su ID (debe devolver el producto con el ID especificado)
+const productId = productManager.getProducts()[0].id;
+console.log(productManager.getProductById(productId)); 
+
+// Actualizar un producto
+productManager.updateProduct(productId, { price: 250 });
+console.log(productManager.getProducts()); // Verificar que el campo 'price' se haya actualizado
+
+// Eliminar un producto
+productManager.deleteProduct(productId);
+console.log(productManager.getProducts()); // Verificar que el producto se haya eliminado
