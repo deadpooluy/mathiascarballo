@@ -41,13 +41,10 @@ class ProductManager {
   }
 }
 
-// Crear una instancia de ProductManager
 const productManager = new ProductManager();
 
-// Obtener los productos (debe ser un arreglo vacío [])
 console.log(productManager.getProducts()); 
 
-// Agregar un nuevo producto
 productManager.addProduct({
   title: 'producto prueba',
   description: 'Este es un producto prueba',
@@ -57,17 +54,13 @@ productManager.addProduct({
   stock: 25
 });
 
-// Obtener los productos (ahora debería contener el producto recién agregado)
 console.log(productManager.getProducts()); 
 
-// Obtener un producto por su ID (debe devolver el producto con el ID especificado)
 const productId = productManager.getProducts()[0].id;
 console.log(productManager.getProductById(productId)); 
 
-// Actualizar un producto
 productManager.updateProduct(productId, { price: 250 });
 console.log(productManager.getProducts()); // Verificar que el campo 'price' se haya actualizado
 
-// Eliminar un producto
 productManager.deleteProduct(productId);
 console.log(productManager.getProducts()); // Verificar que el producto se haya eliminado
